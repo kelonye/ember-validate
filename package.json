@@ -1,7 +1,6 @@
 {
   "name": "ember-validate",
-  "version": "0.0.6",
-  "description": "Validate ember objects",
+  "private": true,
   "devDependencies": {
     "mocha": "*",
     "component-hooks": "*"
