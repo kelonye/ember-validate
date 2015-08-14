@@ -1,3 +1,5 @@
+Apply multiple and async validations to Ember Object propeties.
+
 Install
 ---
 
@@ -12,23 +14,18 @@ Example
 
     validations: {
 
-      age: [
+      email: [
 
-        // client side validation
+        // built-in presence validation
+        'presence',
+
+        // built-in validation with custom error message
+        ['email', 'Invalid email format'],
+
+        // custom async validation
         [
           function(obj, attr, options, done){
-            var age = obj.get(attr); // obj.get('age')
-            if ((20 <= age) || (age <= 30)){
-              return done('Age should be between 20 and 30');
-            }
-            done();
-          }
-        ],
-
-        // server side validation
-        [
-          function(obj, attr, options, done){
-            var age = obj.get(attr);
+            var email = obj.get(attr);
             function success(res){
               done();
             }
@@ -36,14 +33,13 @@ Example
               done(error)
             }
             Em.ajax({
-              url: '/validate-age/' + age
+              url: '/validate-email/' + email
               type: 'GET',
               success: success,
               error: error
             });
           },
         ],
-
 
       ],
 
@@ -54,7 +50,7 @@ Example
   person.validate(function(){
     var errors  = person.get('_errors');
     var isValid = person.get('_isValid');
-    console.log(errors.get('age'));
+    console.log(errors.get('email'));
   });
 
 ```
