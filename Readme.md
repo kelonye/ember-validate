@@ -15,30 +15,34 @@ Example
       age: [
 
         // client side validation
-        function(obj, attr, options, done){
-          var age = obj.get(attr); // obj.get('age')
-          if ((20 <= age) || (age <= 30)){
-            return done('Age should be between 20 and 30');
-          }
-          done();
-        },
-
-        // server side validation
-        function(obj, attr, options, done){
-          var age = obj.get(attr);
-          function success(res){
+        [
+          function(obj, attr, options, done){
+            var age = obj.get(attr); // obj.get('age')
+            if ((20 <= age) || (age <= 30)){
+              return done('Age should be between 20 and 30');
+            }
             done();
           }
-          function error(error){
-            done(error)
-          }
-          Em.ajax({
-            url: '/validate-age/' + age
-            type: 'GET',
-            success: success,
-            error: error
-          });
-        },   
+        ],
+
+        // server side validation
+        [
+          function(obj, attr, options, done){
+            var age = obj.get(attr);
+            function success(res){
+              done();
+            }
+            function error(error){
+              done(error)
+            }
+            Em.ajax({
+              url: '/validate-age/' + age
+              type: 'GET',
+              success: success,
+              error: error
+            });
+          },
+        ],
 
 
       ],
