@@ -10,10 +10,11 @@ components:
 	@$(component) install --dev
 
 public: $(lib)
-	@$(component) build --dev -n $@ -o $@
+	$(component) build --dev -n $@ -o $@
+	@touch $@
 
 test: default
-	@xdg-open test/support.html
+	@open test/support.html
 
 clean:
 	@rm -rf public
