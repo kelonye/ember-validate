@@ -15,17 +15,19 @@ describe('regex:', function() {
   afterEach(function() {
     person = null;
   });
-  it('fail', function() {
+  it('fail', function(done) {
     person.set('tel', '254000111222');
     person.validate(function(){
       assert.equal(person.get('_isValid'), false);
+      done();
     });
   });
-  it('pass', function() {
+  it('pass', function(done) {
     person.set('tel', '254700111222');
     person.validate(function(){
       assert.equal(person.get('_errors.tel'), undefined);
       assert.equal(person.get('_isValid'), true);
+      done();
     });
   });
 });

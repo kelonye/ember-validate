@@ -15,7 +15,7 @@ describe('presence:', function() {
   afterEach(function() {
     person = null;
   });
-  it('name is absent', function() {
+  it('name is absent', function(done) {
     person.validate(function(){
       assert.equal(person.get('_errors.name'), ' ');
       assert.equal(person.get('_isValid'), false);
@@ -23,14 +23,16 @@ describe('presence:', function() {
       person.validate(function(){
         assert.equal(person.get('_errors.name'), ' ');
         assert.equal(person.get('_isValid'), false);
+        done();
       });
     });
   });
-  it('name is present', function() {
+  it('name is present', function(done) {
     person.set('name', 'Yehuda');
     person.validate(function(){
       assert.equal(person.get('_errors.name'), undefined);
       assert.equal(person.get('_isValid'), true);
+      done();
     });
   });
 });

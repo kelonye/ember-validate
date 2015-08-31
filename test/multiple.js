@@ -21,37 +21,41 @@ describe('multiple:', function() {
   afterEach(function() {
     person = null;
   });
-  it('name absent', function() {
+  it('name absent', function(done) {
     person.validate(function(){
       assert.equal(person.get('_errors.name'), ' ');
       assert.equal(person.get('_errors.tel'), undefined);
       assert.equal(person.get('_isValid'), false);
+      done();
     });
   });
   it('tel absent', function() {
     person.set('name', 'TJ');
-    person.validate(function(){
+    person.validate(function(done){
       assert.equal(person.get('_errors.name'), undefined);
       assert.equal(person.get('_errors.tel'), ' ');
       assert.equal(person.get('_isValid'), false);
+      done();
     });
   });
   it('tel format is wrong', function() {
     person.set('name', 'TJ');
     person.set('tel', '254000111222');
-    person.validate(function(){
+    person.validate(function(done){
       assert.equal(person.get('_errors.name'), undefined);
       assert.equal(person.get('_errors.tel'), 'cell no. is invalid');
       assert.equal(person.get('_isValid'), false);
+      done();
     });
   });
   it('name and tel are ok', function() {
     person.set('tel', '254700111222');
     person.set('name', 'TJ');
-    person.validate(function(){
+    person.validate(function(done){
       assert.equal(person.get('_errors.name'), undefined);
       assert.equal(person.get('_errors.tel'), undefined);
       assert.equal(person.get('_isValid'), true);
+      done();
     });
   });
 });
